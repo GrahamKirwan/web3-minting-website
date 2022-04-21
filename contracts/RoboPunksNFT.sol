@@ -17,13 +17,14 @@ contract RoboPunksNFT is ERC721, Ownable {
 
     // Contructor function to be called when contract is created - this will create the boilerplate ERC721 contract from openzeppelin and we pass in our project name and ticker symbol - we also declare variables
     constructor() payable ERC721('RoboPunks', 'RP') {
-        mintPrice = 0.02 ether;
+        mintPrice = 0.01 ether;
         totalSupply = 0;
         maxSupply = 1000;
-        maxPerWallet = 3;
+        maxPerWallet = 20;
         withdrawWallet = payable(0x134deA7C3AC206e9d3Fbc6d2D100DAEdBBA8D02E);
         // set withdraw wallet address (withdrawWallet)
     }
+
 
     //  Only the owner of the contract will be able to call this function. 'isPublicMintEnabled_' is different from our declared variable above (we use an underscore to identify the difference here)
     // The owner of the contract will by default be set to the wallet that deploys the contract
@@ -46,6 +47,8 @@ contract RoboPunksNFT is ERC721, Ownable {
         require(_exists(tokenId_), 'Token does not exist');
         return string(abi.encodePacked(baseTokenUri, Strings.toString(tokenId_), ".json"));
     }
+
+    // baseTokenUri => ipfs://QmfBhpYmR3xuKnuz1zxdgsx6hQb3WuLuRFGMt53vXyENVm/
 
     // This is the function that will withdraw all the funds to the withdrawWallet address that was specified above 
     // Passing to value: address(this).balance is just taking the balance of the smart contract(this)
